@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Upload Form</title>
+</head>
+<body>
+
+  <h2>Upload Video</h2>
+
+  <form id="uploadForm">
+    <label for="video">Choose a video file:</label>
+    <input type="file" id="video" accept="video/*" required>
+    <br>
+    <button type="button" onclick="uploadVideo()">Upload</button>
+  </form>
+
+  <script>
+    function uploadVideo() {
+      var input = document.getElementById('video');
+      var file = input.files[0];
+
+      if (file) {
+        var formData = new FormData();
+        formData.append('video', file);
+
+        fetch('/upload', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message); // Show a success message
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while uploading the video.');
+        });
+      } else {
+        alert('Please choose a video file before uploading.');
+      }
+    }
+  </script>
+
+</body>
+</html>
