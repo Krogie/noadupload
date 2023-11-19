@@ -25,7 +25,7 @@
         var formData = new FormData();
         formData.append('video', file);
 
-        fetch('/upload', {
+        fetch('/noadupload/upload', {
           method: 'POST',
           body: formData,
         })
